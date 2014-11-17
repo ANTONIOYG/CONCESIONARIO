@@ -71,11 +71,18 @@ public class CocheDAO {
 	                 if(filasAfectadas>=1) {
 	                     id= ultimoId();    
 	               }
-	                //.5.cerrar la conexión
-	                 desconectar();
+	                
+	                
+	                
 	            } catch (SQLException e) {
 	                // TODO Auto-generated catch block
 	                e.printStackTrace();
+	                
+	                
+	            }
+	            finally{
+	            	 //.5.cerrar la conexión	
+	            desconectar();
 	            }
 	         return id;
 	    }
@@ -86,7 +93,7 @@ public class CocheDAO {
 	            conectar();
 	          //2. preparar la consulta
 	            PreparedStatement ps;
-	            ps = cx.prepareStatement("SELEC * FROM COCHE WHERE ID=?");
+	            ps = cx.prepareStatement("SELECT * FROM COCHE WHERE ID=?");
 	           // 2.1 setear los ?
 	                ps.setInt(1, id);
 	           // 3, ejecutar la consulta
