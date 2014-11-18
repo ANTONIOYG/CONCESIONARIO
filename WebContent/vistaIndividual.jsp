@@ -7,7 +7,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Vista Individual</title>
-<link rel="stylesheet" type="text/css" href="css/estilo.css"/>
+<style>
+table, td, th {
+    border: 1px solid red;
+}
+
+table {
+    width: 100%;
+}
+
+th {
+    height:50px;
+}
+</style>
+
 </head>
 <body>
 <form action="Procesar" method="get">

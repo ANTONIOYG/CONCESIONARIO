@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import es.concesionario.modelo.Coche;
 
 public class CocheDAO {
@@ -30,7 +33,7 @@ public class CocheDAO {
 	            cx.setAutoCommit(false);
 	        } catch (SQLException e) {
 	           
-	            e.printStackTrace();
+	        	Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"Error SQL",e);
 	        } catch (ClassNotFoundException e) {
 	            // TODO Auto-generated catch block
 	            e.printStackTrace();
@@ -41,7 +44,7 @@ public class CocheDAO {
 	            cx.close();
 	        } catch (SQLException e) {
 	            // TODO Auto-generated catch block
-	            e.printStackTrace();
+	        	Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"Error SQL",e);
 	        }
 	         
 	         
@@ -76,9 +79,7 @@ public class CocheDAO {
 	                
 	            } catch (SQLException e) {
 	                // TODO Auto-generated catch block
-	                e.printStackTrace();
-	                
-	                
+	            	Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"Error SQL",e);
 	            }
 	            finally{
 	            	 //.5.cerrar la conexión	
@@ -110,12 +111,15 @@ public class CocheDAO {
 	                 p.setMarchas(rs.getBoolean("marchas"));
 	                 
 	             }
-	           //5.desconectar
-	             desconectar();
+	          
 	        } catch (SQLException e) {
 	            // TODO Auto-generated catch block
-	            e.printStackTrace();
+	        	Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"Error SQL",e);
 	        }
+	           finally{
+	            	 //.5.cerrar la conexión	
+	            desconectar();
+	            }
 	      return p;
 	    }
 	    public ArrayList<Coche> consultarTodos() {
@@ -140,12 +144,15 @@ public class CocheDAO {
 	                p.setMarchas(consulta.getBoolean("marchas"));	                
 	                coches.add(p);
 	            }
-	            //5. desconectar
-	            desconectar();
+	            
 	        } catch (SQLException e) {
 	        	// TODO Auto-generated catch block
-	        	e.printStackTrace();
+	        	Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"Error SQL",e);
 	        }
+	        finally{
+           	 //.5.cerrar la conexión	
+           desconectar();
+           }
 	        
 	        return coches;
 	    }
@@ -164,12 +171,17 @@ public class CocheDAO {
 	    		if(consulta.next()) {
 	    			idM=consulta.getInt("ULTIMO");
 	    		}
-	    		//5. desconectar
-	    		desconectar();
+
+
 	    	} catch (SQLException e) {
 	    		// TODO Auto-generated catch block
-	    		e.printStackTrace();
+	    		Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"Error SQL",e);
+	    		
 	    	}
+	    	 finally{
+            	 //.5.cerrar la conexión	
+            desconectar();
+            }
 	    	return idM;
 	    }
 	    public ArrayList<Coche> consultarMatricula(String matricula) {
@@ -195,12 +207,15 @@ public class CocheDAO {
 	    			p.setMarchas(consulta.getBoolean("marchas"));
 	    			coches.add(p);
 	    		}
-	    		//5. desconectar
-	    		desconectar();
+	    		
 	    	} catch (SQLException e) {
 	    		// TODO Auto-generated catch block
-	    		e.printStackTrace();
+	    		Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"Error SQL",e);
 	    	}
+	    	 finally{
+            	 //.5.cerrar la conexión	
+            desconectar();
+            }
 	    	return coches;
 	    }
 	    public int borrar(int id) {
@@ -211,11 +226,15 @@ public class CocheDAO {
 	    		ps.setInt(1,id);
 	    		filasAfectada=ps.executeUpdate();
 	    		cx.commit();
-	    		desconectar();
+	    		
 	    	} catch (SQLException e) {
 	    		// TODO Auto-generated catch block
-	    		e.printStackTrace();
-	    	}       
+	    		Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"Error SQL",e);
+	    	}
+	    	 finally{
+            	 //.5.cerrar la conexión	
+            desconectar();
+            }
 	    	return filasAfectada;
 	    }
 	    public int actualizar(int id, String matricula, String marca,
@@ -234,11 +253,15 @@ public class CocheDAO {
 	    		ps.setInt(7, id);
 	    		filasAfectada=ps.executeUpdate();
 	    		cx.commit();
-	    		desconectar();
+	    		
 	    	} catch (SQLException e) {
 	    		// TODO Auto-generated catch block
-	    		e.printStackTrace();
-	    	}       
+	    		Logger.getLogger(this.getClass().getName()).log(Level.SEVERE,"Error SQL",e);
+	    	}
+	    	 finally{
+            	 //.5.cerrar la conexión	
+            desconectar();
+            }
 	    	return filasAfectada;
 	    }
 }
